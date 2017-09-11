@@ -15,7 +15,7 @@ group :development do
 end
 
 gem 'active_model_serializers', '~> 0.10.0'
-gem 'bcrypt', :require => 'bcrypt'
+gem 'bcrypt', require: 'bcrypt'
 gem 'bootstrap'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'figaro'
@@ -32,5 +32,4 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda'
   gem 'spring'
-
 end
