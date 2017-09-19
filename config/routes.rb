@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :users do
       resources :lists
-    end
   end
 
   resources :lists, only: [] do
@@ -12,4 +11,5 @@ Rails.application.routes.draw do
   end
 
   resources :items, only: [:destroy]
+  end
 end
