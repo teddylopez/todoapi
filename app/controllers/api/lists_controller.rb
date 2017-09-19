@@ -13,6 +13,17 @@ class Api::ListsController < ApiController
       end
     end
 
+    def destroy
+      user = User.find(params[:user_id])
+      list = List.find(params[:id])
+
+      if (user == list.user) && list.destroy
+        render json: {}, status: 204
+      else
+        render json: {}, status: 404
+      end
+    end
+
     private
 
     def list_params
