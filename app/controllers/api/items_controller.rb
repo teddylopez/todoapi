@@ -13,9 +13,21 @@ class Api::ItemsController < ApiController
       end
     end
 
+    def update
+      user = User.find(params[:user_id])
+      list = List.find(params[:id])
+      item = Item.find(params[:id])
+
+      if (user == item.list.user) && item.update(item_params)
+        render json: item, status: 200
+      else
+        render json: {}, status: 422
+      end
+    end
+
     private
 
     def item_params
-      params.require(:item).permit(:name, :completed_at)
+      params.require(:item).permit(:name, :completed_at, :completed)
     end
 end
