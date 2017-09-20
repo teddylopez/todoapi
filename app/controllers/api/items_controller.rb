@@ -1,33 +1,33 @@
 class Api::ItemsController < ApiController
-    before_action :authenticated?
-    respond_to :json, :html
+  before_action :authenticated?
+  respond_to :json, :html
 
-    def create
-      list = List.find(params[:list_id])
-      item = list.items.build(item_params)
+  def create
+    list = List.find(params[:list_id])
+    item = list.items.build(item_params)
 
-      if item.save
-        render json: item, status: 201
-      else
-        render json: {}, status: 422
-      end
+    if item.save
+      render json: item, status: 201
+    else
+      render json: {}, status: 422
     end
+  end
 
-    def update
-      user = User.find(params[:user_id])
-      list = List.find(params[:id])
-      item = Item.find(params[:id])
+  def update
+    user = User.find(params[:user_id])
+    list = List.find(params[:id])
+    item = Item.find(params[:id])
 
-      if (user == item.list.user) && item.update(item_params)
-        render json: item, status: 200
-      else
-        render json: {}, status: 422
-      end
+    if (user == item.list.user) && item.update(item_params)
+      render json: item, status: 200
+    else
+      render json: {}, status: 422
     end
+  end
 
-    private
+  private
 
-    def item_params
-      params.require(:item).permit(:name, :completed_at, :completed)
-    end
+  def item_params
+    params.require(:item).permit(:name, :completed_at, :completed)
+  end
 end
