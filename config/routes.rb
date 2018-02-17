@@ -5,9 +5,9 @@ Rails.application.routes.draw do
     end
 
     resources :lists do
-      resources :items, only: [:create, :update]
+      resources :items, only: [:index, :create, :update, :destroy]
     end
 
-    resources :items, only: [:destroy, :update]
+    resources :items, only: [:index, :destroy]
   end
 end

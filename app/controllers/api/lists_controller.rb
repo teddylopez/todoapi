@@ -2,6 +2,12 @@ class Api::ListsController < ApiController
   before_action :authenticated?
   respond_to :json, :html
 
+  def index
+    return permission_denied_error unless authenticated?
+    lists = List.all
+    render json: lists, each_serializer: ListSerializer
+  end
+
   def create
     user = User.find(params[:user_id])
     list = user.lists.build(list_params)
@@ -37,6 +43,6 @@ class Api::ListsController < ApiController
   private
 
   def list_params
-    params.require(:list).permit(:description, :title, :private)
+    params.require(:list).permit(:description, :title, :private, :created_at, :updated_at)
   end
 end
